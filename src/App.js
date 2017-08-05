@@ -44,7 +44,8 @@ class ProductList extends Component {
             #{item.id} 
              -- {item.name}
              -- color: <div className="clr" clr={item.color} 
-              style={{background: item.color}}>{item.color}</div>
+              style={{background: item.color, color: item.color}}>
+              XXX</div>
               </div>
           </label>
       </div>
