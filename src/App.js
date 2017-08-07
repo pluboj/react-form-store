@@ -4,19 +4,27 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
   state = {
-    step: 1
+    step: 1,
+    formData: {}
+  }
+
+  updateData = (data) => {
+    const formData = Object.assign({}, this.state.formData, data);
+    this.setState({
+      formData: formData
+    })
   }
 
   render() {
     switch (this.state.step) {
       case 1:
-        return <ProductList />;
+        return <ProductList updateData={this.updateData}/>;
       case 2:
-        return <ShippingDetails />;
+        return <ShippingDetails updateData={this.updateData}/>;
       case 3:
-        return <DeliveryInformation />
+        return <DeliveryInformation updateData={this.updateData}/>
       default:
-        return <ProductList />;
+        return <ProductList updateData={this.updateData}/>;
     }
   }
 }
@@ -71,10 +79,11 @@ class ProductList extends Component {
     )
   }
 
-  handleSubmit(e) {
-    console.log(e);
+  handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form was submitted');
+    this.props.updateData({
+      selectedItems: this.props.selectedItems
+    })
   }
 
   render() {
