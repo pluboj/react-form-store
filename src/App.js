@@ -11,7 +11,8 @@ class App extends Component {
   updateData = (data) => {
     const formData = Object.assign({}, this.state.formData, data);
     this.setState({
-      formData: formData
+      formData: formData,
+      step: this.state.step + 1
     })
   }
 
@@ -53,8 +54,6 @@ class ProductList extends Component {
     this.setState({
       selectedItems: selectedItems
     })
-
-    console.log(this.state.selectedItems)
   }
 
   renderItem(item) {
@@ -107,9 +106,9 @@ class ProductList extends Component {
 class ShippingDetails extends Component {
   render() {
     return (
-      <h1>
+      <h3>
         Enter your shipping information.
-      </h1>
+      </h3>
     )
   }
 }
@@ -117,9 +116,9 @@ class ShippingDetails extends Component {
 class DeliveryInformation extends Component {
   render() {
     return (
-      <h1>
+      <h3>
         Choose your delivery option.
-      </h1>
+      </h3>
     )
   }
 }
