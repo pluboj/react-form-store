@@ -136,12 +136,9 @@ class ProductList extends Component {
 class ShippingDetails extends Component {
   render() {
     return (
-      <div>
         <h3>
           Enter your shipping information.
         </h3>
-
-      </div>
     )
   }
 }
