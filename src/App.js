@@ -38,7 +38,8 @@ class ProductList extends Component {
       {id: 3, ref: '00601', name: 'item 3', color: 'grey'},
       {id: 4, ref: '78009', name: 'item 4', color: 'yellow'},
     ],
-    selectedItems: []
+    selectedItems: [],
+    errors: false
   }
 
   handleSelection = (e) => {
@@ -78,19 +79,44 @@ class ProductList extends Component {
     )
   }
 
+  renderErrors = () => {
+    if (this.state.errors) {
+      return (
+        <div 
+          className="alert alert-danger"
+          style={{width:'30%'}}
+        >
+          {this.state.errors}
+        </div>
+      )
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.updateData({
-      selectedItems: this.props.selectedItems
-    })
+
+    if (this.state.selectedItems.length === 0) {
+      this.setState({
+        errors: 'Please select an item to continue'
+      })
+    } else {
+      this.setState({
+        errors: false
+      })
+      this.props.updateData({
+        selectedItems: this.props.selectedItems
+      })
+    }
   }
 
   render() {
+    const errorMessage = this.renderErrors();
     return (
       <div>
         <h3>
           Choose from wide variety of our products.
         </h3>
+        {errorMessage}
         <form onSubmit={this.handleSubmit}>
           {this.state.items.map((item) => {
             return this.renderItem(item);
@@ -106,9 +132,12 @@ class ProductList extends Component {
 class ShippingDetails extends Component {
   render() {
     return (
-      <h3>
-        Enter your shipping information.
-      </h3>
+      <div>
+        <h3>
+          Enter your shipping information.
+        </h3>
+
+      </div>
     )
   }
 }
