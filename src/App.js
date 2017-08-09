@@ -122,7 +122,11 @@ class ProductList extends Component {
             return this.renderItem(item);
             })
           }
-          <input type="submit" className="btn btn-success" />
+          <input 
+            type="submit" 
+            className="btn btn-success" 
+            disabled={this.state.selectedItems.length === 0 ? "disabled" : ""}
+          />
         </form>
       </div>
     )
