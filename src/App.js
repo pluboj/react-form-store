@@ -146,7 +146,10 @@ class ShippingDetails extends Component {
   renderError = () => {
     if (this.state.error) {
       return (
-        <div className="alert alert-danger">
+        <div 
+          className="alert alert-danger"
+          style={{width:'30%'}}
+        >
           {this.state.error}
         </div>
       )
@@ -157,13 +160,13 @@ class ShippingDetails extends Component {
     if (this.state.firstName === '') {
       this.setState({error: "Please enter your first name"});
     } else if (this.state.lastName === '') {
-      this.state.setState({error: "Please enter your last name"});
+      this.setState({error: "Please enter your last name"});
     } else if (this.state.email === '') {
-      this.state.setState({error: "Please enter your email address"});
+      this.setState({error: "Please enter your email address"});
     } else if (this.state.phone === '') {
-      this.state.setState({error: "Please enter your phone number"});
+      this.setState({error: "Please enter your phone number"});
     } else if (this.state.shippingAdd === '') {
-      this.state.setState({error: "Please enter your shipping address"});
+      this.setState({error: "Please enter your shipping address"});
     } else {
       this.setState({error: false});
       return true;
@@ -202,6 +205,69 @@ class ShippingDetails extends Component {
           Enter your shipping information.
         </h3>
         {errorMsg}
+        <div style={{width: 300}}>
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <input 
+                className="form-control"
+                type="text"
+                placeholder="First Name"
+                value={this.state.firstName}
+                onChange={(e) => this.handleChange(e, 'firstName')}
+              />
+            </div>
+
+            <div className="form-group">
+              <input 
+                className="form-control"
+                type="text"
+                placeholder="Last Name"
+                value={this.state.lastName}
+                onChange={(e) => this.handleChange(e, 'lastName')}
+              />
+            </div>
+
+            <div className="form-group">
+              <input 
+                className="form-control"
+                type="email"
+                placeholder="Email Address"
+                value={this.state.email}
+                onChange={(e) => this.handleChange(e, 'email')}
+              />
+            </div>
+
+            <div className="form-group">
+              <input 
+                className="form-control"
+                type="text"
+                placeholder="Phone Number"
+                value={this.state.phone}
+                onChange={(e) => this.handleChange(e, 'phone')}
+              />
+            </div>
+
+            <div className="form-group">
+              <input 
+                className="form-control"
+                type="text"
+                placeholder="Shipping Address"
+                value={this.state.shippingAdd}
+                onChange={(e) => this.handleChange(e, 'shippingAdd')}
+              />
+            </div>
+
+            <div className="form-group">
+              <button 
+                type="submit"
+                ref="submit"
+                className="btn btn-success"
+              >
+              submit
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   }
