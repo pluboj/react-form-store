@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import PropTypes from 'prop-types';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
@@ -135,11 +136,13 @@ class ProductList extends Component {
 
 class ShippingDetails extends Component {
   state = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    shippingAdd: '',
+    fields: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      shippingAdd: ''
+    },
     error: false
   }
 
@@ -157,15 +160,15 @@ class ShippingDetails extends Component {
   }
 
   validateInput = () => {
-    if (this.state.firstName === '') {
+    if (this.state.fields.firstName === '') {
       this.setState({error: "Please enter your first name"});
-    } else if (this.state.lastName === '') {
+    } else if (this.state.fields.lastName === '') {
       this.setState({error: "Please enter your last name"});
-    } else if (this.state.email === '') {
+    } else if (this.state.fields.email === '') {
       this.setState({error: "Please enter your email address"});
-    } else if (this.state.phone === '') {
+    } else if (this.state.fields.phone === '') {
       this.setState({error: "Please enter your phone number"});
-    } else if (this.state.shippingAdd === '') {
+    } else if (this.state.fields.shippingAdd === '') {
       this.setState({error: "Please enter your shipping address"});
     } else {
       this.setState({error: false});
@@ -189,13 +192,13 @@ class ShippingDetails extends Component {
     }
   }
 
-  handleChange = (e, attr) => {
-    const state = this.state;
-    state[attr] = e.target.value;
-    this.setState(state);
+  onInputChange = ({name, value}) => {
+    const fields = this.state.fields;
 
-    console.log(this.state);
-  }
+    fields[name] = value;
+    this.setState({ fields });
+    console.log(fields);
+  };
 
   render() {
     const errorMsg = this.renderError();
@@ -207,55 +210,50 @@ class ShippingDetails extends Component {
         {errorMsg}
         <div style={{width: 300}}>
           <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <input 
-                className="form-control"
+            <FormInput
                 type="text"
-                placeholder="First Name"
+                label="First Name"
                 value={this.state.firstName}
-                onChange={(e) => this.handleChange(e, 'firstName')}
-              />
-            </div>
+                name="firstName"
+                onChange={this.onInputChange}
+            >
+            </FormInput>
 
-            <div className="form-group">
-              <input 
-                className="form-control"
+            <FormInput
                 type="text"
-                placeholder="Last Name"
+                label="Last Name"
                 value={this.state.lastName}
-                onChange={(e) => this.handleChange(e, 'lastName')}
-              />
-            </div>
+                name="lastName"
+                onChange={this.onInputChange}
+            >
+            </FormInput>
 
-            <div className="form-group">
-              <input 
-                className="form-control"
+            <FormInput
                 type="email"
-                placeholder="Email Address"
+                label="Email Address"
                 value={this.state.email}
-                onChange={(e) => this.handleChange(e, 'email')}
-              />
-            </div>
+                name="email"
+                onChange={this.onInputChange}
+            >
+            </FormInput>
 
-            <div className="form-group">
-              <input 
-                className="form-control"
+            <FormInput
                 type="text"
-                placeholder="Phone Number"
+                label="Phone Number"
                 value={this.state.phone}
-                onChange={(e) => this.handleChange(e, 'phone')}
-              />
-            </div>
+                name="phone"
+                onChange={this.onInputChange}
+            >
+            </FormInput>
 
-            <div className="form-group">
-              <input 
-                className="form-control"
+            <FormInput
                 type="text"
-                placeholder="Shipping Address"
+                label="Shipping Address"
                 value={this.state.shippingAdd}
-                onChange={(e) => this.handleChange(e, 'shippingAdd')}
-              />
-            </div>
+                name="shippingAdd"
+                onChange={this.onInputChange}
+            >
+            </FormInput>
 
             <div className="form-group">
               <button 
@@ -268,6 +266,45 @@ class ShippingDetails extends Component {
             </div>
           </form>
         </div>
+      </div>
+    )
+  }
+}
+
+class FormInput extends Component {
+  static propTypes = {
+    label: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+  };
+
+  state = {
+    value: this.props.value
+  };
+
+  componentWillReceiveProps(update) {
+    this.setState({ value: update.value });
+  }
+
+  onChange = (e) => {
+    const name = this.props.name;
+    const value = e.target.value;
+
+    this.setState({ value });
+    this.props.onChange({ name, value });
+};
+
+  render() {
+    return (
+      <div className="form-group">
+        <input 
+          className="form-control"
+          type={this.props.type}
+          placeholder={this.props.label}
+          value={this.state.value}
+          onChange={this.onChange}
+        />
       </div>
     )
   }
