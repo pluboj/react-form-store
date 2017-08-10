@@ -134,11 +134,75 @@ class ProductList extends Component {
 }
 
 class ShippingDetails extends Component {
+  state = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    shippingAdd: '',
+    error: false
+  }
+
+  renderError = () => {
+    if (this.state.error) {
+      return (
+        <div className="alert alert-danger">
+          {this.state.error}
+        </div>
+      )
+    }
+  }
+
+  validateInput = () => {
+    if (this.state.firstName === '') {
+      this.setState({error: "Please enter your first name"});
+    } else if (this.state.lastName === '') {
+      this.state.setState({error: "Please enter your last name"});
+    } else if (this.state.email === '') {
+      this.state.setState({error: "Please enter your email address"});
+    } else if (this.state.phone === '') {
+      this.state.setState({error: "Please enter your phone number"});
+    } else if (this.state.shippingAdd === '') {
+      this.state.setState({error: "Please enter your shipping address"});
+    } else {
+      this.setState({error: false});
+      return true;
+    }
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      phone: this.state.phone,
+      shippingAdd: this.state.shippingAdd
+    }
+
+    if (this.validateInput()) {
+      this.props.updateData(data);
+    }
+  }
+
+  handleChange = (e, attr) => {
+    const state = this.state;
+    state[attr] = e.target.value;
+    this.setState(state);
+
+    console.log(this.state);
+  }
+
   render() {
+    const errorMsg = this.renderError();
     return (
+      <div>
         <h3>
           Enter your shipping information.
         </h3>
+        {errorMsg}
+      </div>
     )
   }
 }
