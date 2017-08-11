@@ -141,40 +141,26 @@ class ShippingDetails extends Component {
       lastName: '',
       email: '',
       phone: '',
-      shippingAdd: ''
+      address1: '',
+      city: '',
+      state: '',
+      zip: ''
     },
-    error: false
+    errors: {}
   }
 
-  renderError = () => {
-    if (this.state.error) {
-      return (
-        <div 
-          className="alert alert-danger"
-          style={{width:'30%'}}
-        >
-          {this.state.error}
-        </div>
-      )
-    }
-  }
+  validate = () => {
+    const member = this.state.fields;
+    const errors = this.state.errors;
+    const messages = Object.keys(errors).filter((k) => errors[k]);
 
-  validateInput = () => {
-    if (this.state.fields.firstName === '') {
-      this.setState({error: "Please enter your first name"});
-    } else if (this.state.fields.lastName === '') {
-      this.setState({error: "Please enter your last name"});
-    } else if (this.state.fields.email === '') {
-      this.setState({error: "Please enter your email address"});
-    } else if (this.state.fields.phone === '') {
-      this.setState({error: "Please enter your phone number"});
-    } else if (this.state.fields.shippingAdd === '') {
-      this.setState({error: "Please enter your shipping address"});
-    } else {
-      this.setState({error: false});
-      return true;
-    }
-  }
+    if (this.state.fields.firstName === '') return true;
+    if (!member.lastName) return true;
+    if (!member.email) return true;
+    if (messages.length) return true;
+
+    return false;
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -184,76 +170,107 @@ class ShippingDetails extends Component {
       lastName: this.state.lastName,
       email: this.state.email,
       phone: this.state.phone,
-      shippingAdd: this.state.shippingAdd
+      address1: this.state.address1,
+      city: this.state.city,
+      state: this.state.state,
+      zip: this.state.zip
     }
 
-    if (this.validateInput()) {
+    if (!this.validate()) {
       this.props.updateData(data);
     }
   }
 
-  onInputChange = ({name, value}) => {
+  onInputChange = ({name, value, error}) => {
     const fields = this.state.fields;
+    const errors = this.state.errors;
 
     fields[name] = value;
-    this.setState({ fields });
-    console.log(fields);
+    errors[name] = error;
+
+    this.setState({ fields, errors });
   };
 
   render() {
-    const errorMsg = this.renderError();
     return (
       <div>
         <h3>
           Enter your shipping information.
         </h3>
-        {errorMsg}
+        <p>* required field</p>
         <div style={{width: 300}}>
           <form onSubmit={this.handleSubmit}>
             <FormInput
                 type="text"
                 label="First Name"
-                value={this.state.firstName}
+                value={this.state.fields.firstName}
                 name="firstName"
                 onChange={this.onInputChange}
-            >
-            </FormInput>
+                validate={(val) => (val ? false : 'Please enter a first name.')}
+            ></FormInput>
 
             <FormInput
                 type="text"
                 label="Last Name"
-                value={this.state.lastName}
+                value={this.state.fields.lastName}
                 name="lastName"
                 onChange={this.onInputChange}
-            >
-            </FormInput>
+                validate={(val) => (val ? false : 'Please enter a last name.')}
+            ></FormInput>
 
             <FormInput
                 type="email"
                 label="Email Address"
-                value={this.state.email}
+                value={this.state.fields.email}
                 name="email"
                 onChange={this.onInputChange}
-            >
-            </FormInput>
+                validate={(val) => (val ? false : 'Please enter an email.')}
+            ></FormInput>
 
             <FormInput
                 type="text"
                 label="Phone Number"
-                value={this.state.phone}
+                value={this.state.fields.phone}
                 name="phone"
                 onChange={this.onInputChange}
-            >
-            </FormInput>
+                validate={(val) => (val ? false : 'Please enter a phone number.')}
+            ></FormInput>
 
             <FormInput
                 type="text"
-                label="Shipping Address"
-                value={this.state.shippingAdd}
-                name="shippingAdd"
+                label="Address line 1"
+                value={this.state.fields.address1}
+                name="address1"
                 onChange={this.onInputChange}
-            >
-            </FormInput>
+                validate={(val) => (val ? false : 'Please enter a street address.')}
+            ></FormInput>
+
+            <FormInput
+                type="text"
+                label="City"
+                value={this.state.fields.city}
+                name="city"
+                onChange={this.onInputChange}
+                validate={(val) => (val ? false : 'Please enter a city.')}
+            ></FormInput>
+
+            <FormInput
+                type="text"
+                label="State"
+                value={this.state.fields.state}
+                name="state"
+                onChange={this.onInputChange}
+                validate={(val) => (val ? false : 'Please enter a state.')}
+            ></FormInput>
+
+            <FormInput
+                type="text"
+                label="Zip Code"
+                value={this.state.fields.zip}
+                name="zip"
+                onChange={this.onInputChange}
+                validate={(val) => (val ? false : 'Please enter a zip code.')}
+            ></FormInput>
 
             <div className="form-group">
               <button 
@@ -276,11 +293,13 @@ class FormInput extends Component {
     label: PropTypes.string,
     name: PropTypes.string.isRequired,
     value: PropTypes.string,
+    validate: PropTypes.func,
     onChange: PropTypes.func.isRequired,
   };
 
   state = {
-    value: this.props.value
+    value: this.props.value,
+    error: false
   };
 
   componentWillReceiveProps(update) {
@@ -290,14 +309,18 @@ class FormInput extends Component {
   onChange = (e) => {
     const name = this.props.name;
     const value = e.target.value;
+    const error = this.props.validate ? this.props.validate(value) : false;
 
-    this.setState({ value });
-    this.props.onChange({ name, value });
+    this.setState({ value, error });
+    this.props.onChange({ name, value, error });
 };
 
   render() {
     return (
       <div className="form-group">
+      <label>
+        {this.props.label}*
+      </label>
         <input 
           className="form-control"
           type={this.props.type}
@@ -305,6 +328,7 @@ class FormInput extends Component {
           value={this.state.value}
           onChange={this.onChange}
         />
+        <span style={{ color: 'red'}}>{this.state.error}</span>
       </div>
     )
   }
