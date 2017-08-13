@@ -7,12 +7,17 @@ const Select = require('react-select');
 
 class Dropdown extends Component {
 	state = {
-		value: ''
+		value: '',
+		error: false
 	}
 
 	onChange = (val) => {
+		const name = this.props.name;
 		const value = val === null ? '' : val.value;
-		this.setState({ value: value});
+		const error = this.props.validate ? this.props.validate(value) : false;
+		
+		this.setState({ value, error });
+    	this.props.onChange({ name, value, error });
 	}
 
 	render() {		
@@ -25,7 +30,7 @@ class Dropdown extends Component {
 		return (
 			<div className="form-group">
 		      <label>
-		        State*
+		        {this.props.label}*
 		      </label>
 			  <Select
 			    style={this.props.style}
@@ -34,6 +39,7 @@ class Dropdown extends Component {
 			    options={options}
 			    onChange={this.onChange}
 			  />
+			  <span style={{ color: 'red'}}>{this.state.error}</span>
 			</div>
 		)
 	}

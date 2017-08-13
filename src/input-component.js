@@ -26,7 +26,6 @@ class FormInput extends Component {
     const name = this.props.name;
     const value = e.target.value;
     const error = this.props.validate ? this.props.validate(value) : false;
-    console.log(error)
 
     this.setState({ value, error });
     this.props.onChange({ name, value, error });

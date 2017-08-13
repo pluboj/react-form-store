@@ -133,6 +133,10 @@ class ShippingDetails extends Component {
 
             <Dropdown 
                 style={{width:"130px"}}
+                label="State"
+                name="state"
+                onChange={this.onInputChange}
+                validate={(val) => (val ? false : 'Please enter a state.')}
             />
 
             <FormInput
