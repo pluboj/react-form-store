@@ -3,6 +3,7 @@ import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import FormInput from './input-component.js';
+import Dropdown from './dropdown-component.js';
 
 class ShippingDetails extends Component {
   state = {
@@ -130,18 +131,12 @@ class ShippingDetails extends Component {
                 validate={(val) => (val ? false : 'Please enter a city.')}
             ></FormInput>
 
-            <FormInput
-            	style={{width:"70px"}}
-                type="text"
-                label="State"
-                value={this.state.fields.state}
-                name="state"
-                onChange={this.onInputChange}
-                validate={(val) => (val ? false : 'Please enter a state.')}
-            ></FormInput>
+            <Dropdown 
+                style={{width:"130px"}}
+            />
 
             <FormInput
-            	style={{width:"100px"}}
+            	  style={{width:"130px"}}
                 type="text"
                 label="Zip Code"
                 value={this.state.fields.zip}
