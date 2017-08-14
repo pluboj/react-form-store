@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-import ShippingDetails from './shipping-details.js';
-import DeliveryInformation from './delivery-information.js';
+import ShippingDetails from './components/shipping-details.js';
+import DeliveryInformation from './components/delivery-information.js';
 
 class App extends Component {
   state = {

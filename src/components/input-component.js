@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
 import PropTypes from 'prop-types';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 class FormInput extends Component {

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import FormInput from './input-component.js';
 import Dropdown from './dropdown-component.js';
@@ -11,7 +9,6 @@ class ShippingDetails extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      phone: '',
       address1: '',
       city: '',
       state: '',
@@ -28,7 +25,6 @@ class ShippingDetails extends Component {
     if (!member.firstName ) return true;
     if (!member.lastName) return true;
     if (!member.email) return true;
-    if (!member.phone ) return true;
     if (!member.address1) return true;
     if (!member.city) return true;
     if (!member.zip) return true;
@@ -44,7 +40,6 @@ class ShippingDetails extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
-      phone: this.state.phone,
       address1: this.state.address1,
       city: this.state.city,
       state: this.state.state,
@@ -102,15 +97,6 @@ class ShippingDetails extends Component {
                 name="email"
                 onChange={this.onInputChange}
                 validate={(val) => (val ? false : 'Please enter an email.')}
-            ></FormInput>
-
-            <FormInput
-                type="text"
-                label="Phone Number"
-                value={this.state.fields.phone}
-                name="phone"
-                onChange={this.onInputChange}
-                validate={(val) => (val ? false : 'Please enter a phone number.')}
             ></FormInput>
 
             <FormInput
