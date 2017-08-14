@@ -3,6 +3,7 @@ import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import ShippingDetails from './shipping-details.js';
+import DeliveryInformation from './delivery-information.js';
 
 class App extends Component {
   state = {
@@ -131,17 +132,6 @@ class ProductList extends Component {
           />
         </form>
       </div>
-    )
-  }
-}
-
-
-class DeliveryInformation extends Component {
-  render() {
-    return (
-      <h3>
-        Choose your delivery option.
-      </h3>
     )
   }
 }

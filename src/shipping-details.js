@@ -31,7 +31,7 @@ class ShippingDetails extends Component {
     if (!member.phone ) return true;
     if (!member.address1) return true;
     if (!member.city) return true;
-     if (!member.zip) return true;
+    if (!member.zip) return true;
     if (messages.length) return true;
 
     return false;
@@ -140,7 +140,8 @@ class ShippingDetails extends Component {
             />
 
             <FormInput
-            	  style={{width:"130px"}}
+            	style={{width:"130px"}}
+            	max={5}
                 type="text"
                 label="Zip Code"
                 value={this.state.fields.zip}

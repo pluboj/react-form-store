@@ -39,6 +39,7 @@ class FormInput extends Component {
       </label>
         <input 
           style={this.props.style}
+          maxLength={this.props.max}
           className="form-control"
           type={this.props.type}
           placeholder={this.props.label}
