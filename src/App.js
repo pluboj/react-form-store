@@ -24,9 +24,11 @@ class App extends Component {
       case 1:
         return <ProductList updateData={this.updateData}/>;
       case 2:
-        return <ShippingDetails updateData={this.updateData}/>;
+        return <ShippingDetails updateData={this.updateData} data={this.state.formData}/>;
       case 3:
         return <DeliveryInformation updateData={this.updateData}/>
+      case 4:
+        return <Confirmation data={this.state.formData}/>
       default:
         return <ProductList updateData={this.updateData}/>;
     }
@@ -107,7 +109,7 @@ class ProductList extends Component {
         errors: false
       })
       this.props.updateData({
-        selectedItems: this.props.selectedItems
+        selectedItems: this.state.selectedItems
       })
     }
   }
@@ -131,6 +133,21 @@ class ProductList extends Component {
             disabled={this.state.selectedItems.length === 0 ? "disabled" : ""}
           />
         </form>
+      </div>
+    )
+  }
+}
+
+class Confirmation extends Component {
+  
+  render() {
+
+    return (
+      <div>
+        <h3>
+          Order Confirmation
+        </h3>
+        Selected Item(s): {this.props.data.selectedItems.join(', ')}
       </div>
     )
   }
