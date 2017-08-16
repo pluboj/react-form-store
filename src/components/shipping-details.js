@@ -133,7 +133,7 @@ class ShippingDetails extends Component {
                 value={this.state.fields.zip}
                 name="zip"
                 onChange={this.onInputChange}
-                validate={(val) => (val ? false : 'Please enter a zip code.')}
+                validate={(val) => (val && val.match(/[0-9]{5}/) ? false : 'Please enter valid zip code.')}
             ></FormInput>
 
             <div className="form-group">
