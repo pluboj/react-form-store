@@ -20,16 +20,16 @@ class Dropdown extends Component {
 
 	render() {		
 		const options = [
-	        { value: 'al', label: 'AL' },
-	        { value: 'ak', label: 'AK' },
-	        { value: 'az', label: 'AZ' },
-	        { value: 'ar', label: 'AR' },
-	        { value: 'ca', label: 'CA' },
-	        { value: 'co', label: 'CO' },
-	        { value: 'ct', label: 'CT' },
-	        { value: 'de', label: 'DE' },
-	        { value: 'fl', label: 'FL' },
-	        { value: 'ga', label: 'GA' }
+	        { value: 'AL', label: 'AL' },
+	        { value: 'AK', label: 'AK' },
+	        { value: 'AZ', label: 'AZ' },
+	        { value: 'AR', label: 'AR' },
+	        { value: 'CA', label: 'CA' },
+	        { value: 'CO', label: 'CO' },
+	        { value: 'CT', label: 'CT' },
+	        { value: 'DE', label: 'DE' },
+	        { value: 'FL', label: 'FL' },
+	        { value: 'GA', label: 'GA' }
 	      ];
 
 		return (

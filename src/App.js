@@ -147,7 +147,13 @@ class Confirmation extends Component {
         <h3>
           Order Confirmation
         </h3>
-        Selected Item(s): {this.props.data.selectedItems.join(', ')}
+        <p><strong>Selected Item(s):</strong> {this.props.data.selectedItems.join(', ')}</p>
+        <p><strong>First Name:</strong> {this.props.data.firstName}</p>
+        <p><strong>Last Name:</strong> {this.props.data.lastName}</p>
+        <p><strong>Email:</strong> {this.props.data.email}</p>
+        <p><strong>Shipping Address:</strong> {this.props.data.address1}, 
+          {this.props.data.city}, {this.props.data.state} {this.props.data.zip}</p>
+        <p><strong>Delivery Option:</strong> {this.props.data.deliveryOption}</p>
       </div>
     )
   }

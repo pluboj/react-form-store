@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class DeliveryInformation extends Component {
 	state = {
-		deliveryOption: 'option1'
+		deliveryOption: 'free'
 	}
 
 	handleChange = (e) => {
@@ -26,10 +26,10 @@ class DeliveryInformation extends Component {
 					    <input 
 					    	type="radio" 
 					    	name="delivery" 
-					    	id="option1" 
-					    	value="option1"
+					    	id="free" 
+					    	value="free"
 					    	onChange={this.handleChange} 
-					    	checked={this.state.deliveryOption ==="option1"} 
+					    	checked={this.state.deliveryOption ==="free"} 
 					    />
 					    <p>Everyday Free Shipping</p> 
 						<p>Transit time: 3-6 business days</p>
@@ -41,10 +41,10 @@ class DeliveryInformation extends Component {
 					    <input 
 					    	type="radio" 
 					    	name="delivery" 
-					    	id="option2" 
-					    	value="option2" 
+					    	id="premium" 
+					    	value="premium" 
 					    	onChange={this.handleChange}
-					    	checked={this.state.deliveryOption ==="option2"} 
+					    	checked={this.state.deliveryOption ==="premium"} 
 					     />
 					    <p>Premium</p> 
 						<p>Transit time: 2-3 business days</p>
@@ -56,10 +56,10 @@ class DeliveryInformation extends Component {
 					    <input 
 					    	type="radio" 
 					    	name="delivery" 
-					    	id="option3" 
-					    	value="option3"
+					    	id="express" 
+					    	value="express"
 					    	onChange={this.handleChange}
-					    	checked={this.state.deliveryOption ==="option3"} 
+					    	checked={this.state.deliveryOption ==="express"} 
 					    />
 					    <p>Express</p> 
 						<p>Transit time: 1-2 business days</p>

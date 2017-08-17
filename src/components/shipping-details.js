@@ -34,22 +34,12 @@ class ShippingDetails extends Component {
   };
 
   handleSubmit = (e) => {
-    e.preventDefault();
-
-    const data = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      address1: this.state.address1,
-      city: this.state.city,
-      state: this.state.state,
-      zip: this.state.zip
-    }
+    e.preventDefault();    
 
     if (this.validate()) return;
 
     if (!this.validate()) {
-      this.props.updateData(data);
+      this.props.updateData(this.state.fields);
     }
   }
 
